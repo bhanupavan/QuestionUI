@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>jqxTree Framework</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="/c/jsoneditor/dist/jsoneditor.css" rel="stylesheet">
+    <script src="/s/jsoneditor/dist/jsoneditor.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/c/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="/c/jqwidgets/jqwidgets/styles/jqx.summer.css" type="text/css" />
+    <script type="text/javascript" src="/s/jqwidgets/scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/s/jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="/s/jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="/s/jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="/s/jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="/s/jqwidgets/jqwidgets/jqxtree.js"></script>
+    <script type="text/javascript" src="/s/jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var source = [{
+            label: "Item 1",
+            expanded: true,
+            items: [{
+                label: "Item 1.1"
+            }, {
+                label: "Item 1.2",
+                selected: true
+            }]
+        }, {
+            label: "Item 2"
+        }, {
+            label: "Item 3"
+        }, {
+            label: "Item 4",
+            items: [{
+                label: "Item 4.1"
+            }, {
+                label: "Item 4.2"
+            }, {
+                label: "Item 4.3"
+            }]
+        }, {
+            label: "Item 5"
+        }, {
+            label: "Item 6"
+        }, {
+            label: "Item 7"
+        }];
+        // Create jqxTree.
+        $('#jqxTree').jqxTree({
+            checkboxes: true,
+            source: source,
+            height: '300px',
+            width: '300px'
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <!-- Main -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Sample Form</h3>
+                        <form name="inputDto" id="formId">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%" style="border-collapse: separate;border-spacing: 5px;">
+                                <tr style="width: inherit;">
+                                    <td colspan="2">
+                                        <div align="left">
+                                            <h3>Sample Form</h3>
+                                            <br>
+                                            <div class="form-group col-xs-10">
+                                                <input autofocus length=100 type="text" class="form-control" id="url" name="url" placeholder="Enter URL"> 
+                                                </div>
+                                            <input value="Go!" name="extract" type="button" id="btnGetDriver" class="btn btn-default"> 
+                                        </div>
+                    </div>
+                    </td>
+                    </tr>
+                    <tr style="width: inherit;">
+                        <td colspan="2">
+                            <div align="left">
+                                <div class="form-group col-xs-4">
+                                    <input autofocus type="text" class="form-control" id="rootXpath" name="rootXpath" placeholder="Enter root xpath"> </div>
+                                <div class="form-group col-md-2">
+                                    <input value="Extract" name="display" type="button" onclick='getQuestions()' class="btn btn-default"> </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="width: inherit;">
+                        <td colspan="2">
+                            <div align="left" id="showNameFields" class="hidden">
+                                <div class="form-group col-xs-4">
+                                    <input autofocus type="text" class="form-control" id="pageName" name="pageName" placeholder="Enter Page Name"> </div>
+                                <div class="form-group col-md-3">
+                                    <input autofocus type="text" class="form-control" id="qSetName" name="qSetName" placeholder="Enter Question set Name"> </div>
+                                <div class="form-group col-md-3">
+                                    <button type="button" id="viewPages" onclick="getPages()" class="btn btn-default">View</button>
+                                    <button type="button" id="savePages" class="btn btn-default">Save</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="width: inherit;">
+                        <td style="height: 450px; border: 1;width: 25%;">
+                            <div style="overflow: auto;position: relative; height: 100%; border: 1px solid #97B0F8;width: 100%;margin: auto;" id="questions">
+                            </div>
+                        </td>
+                        <td style="height: 400px; border: 1;width: 65%;">
+                            <div style="overflow: auto;position: relative; height: 100%; border: 1px solid #97B0F8;width: 100%;" id="pages"> </div>
+                        </td>
+                    </tr>
+                    </table>
+                    </form>
+                </div>
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Left Panel</h3>
+                </div>
+                <div class="panel-body">
+                    <div id='jqxTree'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Right Panel</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        ABCD EFGH IJKL MNOP QRST UVWX YZ
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--/container-->
+</body>
+
+</html>
